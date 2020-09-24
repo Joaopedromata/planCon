@@ -20,9 +20,24 @@ module.exports = {
 
     async index(req,res){
 
-        const show = await Permission.findAll({ 
-            include: { association: 'permissions'}
+        const show = await Permission.findAll()
+
+        res.status(200).json(show)
+
+    },
+
+    async show(req,res){
+
+        const { permission_id } = req.params
+ 
+
+        const show = await Permission.findByPk(permission_id, {
+            include: { association: 'users' }
         })
+
+        if (!show) {
+            return res.status(400).json({ error: 'Permissions not found' })
+        }
 
         res.status(200).json(show)
 

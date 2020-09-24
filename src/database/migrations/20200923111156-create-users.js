@@ -17,7 +17,7 @@ module.exports = {
           allowNull: false,
         },
 
-        board: {
+        identifier: {
           type: Sequelize.INTEGER,
           allowNull: false,
           unique: true
@@ -27,7 +27,16 @@ module.exports = {
           type: Sequelize.STRING,
           allowNull: false,
         },
-        
+
+        permission_id: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          references: { model: 'permissions', key: 'id'},
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE'
+        },
+
+
         createdAt: {
           type: Sequelize.DATE,
           allowNull: false

@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('inputs', { 
+    await queryInterface.createTable('rms', { 
         
       id: {
         type: Sequelize.INTEGER,
@@ -11,40 +11,39 @@ module.exports = {
         allowNull: false
       },
 
-      productId: {
+      rm: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
+      },
+
+      date: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+
+      location_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'products', key: 'id'},
+        references: { model: 'categories', key: 'id'},
         onUpdate: 'CASCADE',
-        onDelete: 'RESTRICT'
+        onDelete: 'CASCADE'
       },
 
-      quantity: {
+      cell_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references: { model: 'cells', key: 'id'},
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
 
-      responsibleId: {
+      user_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'users', key: 'id'},
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
-      },
-
-      rm: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-
-      date: {
-        type: Sequelize.DATE,
-        allowNull: false
-      },
-
-      locality: {
-        type: Sequelize.STRING,
-        allowNull: false,
       },
 
       createdAt: {
@@ -61,6 +60,6 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    await queryInterface.dropTable('inputs');
+    await queryInterface.dropTable('rms');
   }
 };

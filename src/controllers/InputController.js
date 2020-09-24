@@ -8,8 +8,8 @@ module.exports = {
 
         const input = await Input.findAll({
             include: [
-                { association: 'product'}, 
-                { association: 'user' }
+                // { association: 'product'}, 
+                // { association: 'user' }
             ]
         })
 

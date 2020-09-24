@@ -4,11 +4,16 @@ class Product extends Model {
     static init(sequelize) {
         super.init({
             sap: DataTypes.INTEGER,
-            description: DataTypes.STRING,
-            unit: DataTypes.STRING
+            description: DataTypes.STRING
         },{
             sequelize
         })
+    }
+
+    static associate(models) {
+        this.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' })
+        this.belongsTo(models.Category, { foreignKey: 'category_id', as: 'category' })
+        this.belongsTo(models.Unit, { foreignKey: 'unit_id', as: 'unit' })
     }
 }
 

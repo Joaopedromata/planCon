@@ -1,14 +1,21 @@
 const { Model, DataTypes } = require('sequelize')
 
 class User extends Model {
+    
     static init(sequelize) {
         super.init({
             name: DataTypes.STRING,
-            board: DataTypes.INTEGER,
+            identifier: DataTypes.INTEGER,
             password: DataTypes.STRING
         },{
             sequelize
         })
+    }
+
+    static associate(models) {
+        this.belongsTo(models.Permission, { foreignKey: 'permission_id', as: 'permission' })
+        this.hasMany(models.Location, { foreignKey: 'user_id', as: 'locations' })
+        this.hasMany(models.Cell, { foreignKey: 'user_id', as: 'users' })
     }
 }
 

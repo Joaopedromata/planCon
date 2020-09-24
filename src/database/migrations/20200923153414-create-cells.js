@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     
-     await queryInterface.createTable('signups', { 
+     await queryInterface.createTable('cells', { 
         
         id: {
           type: Sequelize.INTEGER,
@@ -12,38 +12,27 @@ module.exports = {
           allowNull: false
         },
 
-        name: {
-          type: Sequelize.STRING,
-          allowNull: false,
-        },
-
-        identifier: {
-          type: Sequelize.INTEGER,
-          allowNull: false,
-          unique: true
-        },
-
-        permission_id: {
-          type: Sequelize.INTEGER,
-          allowNull: false,
-          // references: { model: 'permissions', key: 'id'},
-          // onUpdate: 'CASCADE',
-          // onDelete: 'CASCADE'
-        },
-
         location_id: {
           type: Sequelize.INTEGER,
           allowNull: false,
-          // references: { model: 'locations', key: 'id'},
-          // onUpdate: 'CASCADE',
-          // onDelete: 'CASCADE'
+          references: { model: 'locations', key: 'id'},
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE'
         },
 
-        password: {
+        user_id: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          references: { model: 'users', key: 'id'},
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE'
+        },
+
+        number: {
           type: Sequelize.STRING,
           allowNull: false,
         },
-        
+
         createdAt: {
           type: Sequelize.DATE,
           allowNull: false
@@ -58,6 +47,6 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-     await queryInterface.dropTable('signups');
+     await queryInterface.dropTable('cells');
   }
 };

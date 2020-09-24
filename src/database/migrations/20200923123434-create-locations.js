@@ -18,19 +18,14 @@ module.exports = {
           unique: true
         },
 
-        cell_id: {
-          type: Sequelize.INTEGER,
-          allowNull: false,
-        },
-
         user_id: {
           type: Sequelize.INTEGER,
           allowNull: false,
-          references: { model: 'signups', key: 'id'},
+          references: { model: 'users', key: 'id'},
           onUpdate: 'CASCADE',
           onDelete: 'CASCADE'
         },
-        
+
         createdAt: {
           type: Sequelize.DATE,
           allowNull: false

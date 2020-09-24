@@ -1,12 +1,13 @@
 const Router = require('express')
 const PermissionController = require('../controllers/Account/PermissionController')
-const SignUpController = require('../controllers/Account/SignUpController')
+const UserController = require('../controllers/Account/UserController')
 
 const routes = Router()
 
 routes.post('/permissions', PermissionController.store)
 routes.get('/permissions', PermissionController.index)
+routes.get('/permissions/:permission_id', PermissionController.show)
 
-routes.post('/signup', SignUpController.store)
+routes.post('/', UserController.store)
 
 module.exports = routes

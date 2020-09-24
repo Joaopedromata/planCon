@@ -1,43 +1,55 @@
 const Location = require('../../models/Location')
+const User = require('../../models/User')
 
+module.exports = {
 
-module.exports = { 
+    async index(req,res) {
+
+        const { user_id } = req.params
+
+        const show = await User.findByPk(user_id,{
+            include: { association: 'locations' }
+        })
+
+        if (!show) {
+            return res.status(400).json({ error: 'Users not found' })
+        }
+
+       
+        res.status(200).json(show)
+
+    },
 
     async store(req, res) {
-
-        const { city, cell_id, user_id } = req.body
+        
+        const { user_id } = req.params
+        const { city } = req.body
 
         const checkCity = await Location.findOne({ where: { city }})
 
-        if(checkCity){
+        if (checkCity) {
             return res.status(400).json({ error: 'This city already exists' })
+        }
+
+        const checkUser = await User.findByPk(user_id)
+
+        if (!checkUser) {
+            return res.status(400).json({ error: 'Users not found' })
         }
 
         const insert = await Location.create({
             city,
-            cell_id,
             user_id
         })
 
         res.status(200).json(insert)
-
     },
 
-    async index(req, res) {
-
-        const { location_id } = req.params
-
-        const checkLocation = await Location.findByPk(location_id)
-
-        if(!checkLocation) {
-            return res.status(400).json({ error: 'This Location does not exists' })
-        }
+    async show(req, res) {
 
         
-        const show = await Location.findByPk(location_id)
+        const show = await Location.findAll({ include: { association: 'user' }})
 
-        return res.status(200).json(show)
+        res.status(200).json(show)
     }
-
-
 }

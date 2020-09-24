@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs')
-const User = require('../models/User')
+const Permission = require('../../models/Permission')
+const User = require('../../models/User')
 
 
 
@@ -16,15 +17,21 @@ module.exports = {
        
         const saltRounds = 10
 
-        const { name, board, password } = req.body
+        const { name, identifier, password, permission_id } = req.body
+
+        const checkPermission = await Permission.findByPk(permission_id)
+
+        if (!checkPermission){
+            return res.status(400).json({ error: 'Permission not found' })
+        }
         
-        const checkBoard = await User.findOne({ where: { board }})
+        const checkIdentifier = await User.findOne({ where: { identifier }})
     
-        if(checkBoard){
+        if (checkIdentifier){
             return res.status(400).json({ error: 'User already exists' })
         }
     
-        if(password.length <= 8){
+        if (password.length <= 8){
             return res.status(400).json({ error: 'Your password must have at least 8 characters' })
         }
     
@@ -32,8 +39,9 @@ module.exports = {
 
         const user = await User.create({
             name,
-            board,
-            password: hash
+            identifier,
+            password: hash,
+            permission_id
         })
         
         return res.status(200).json(user)

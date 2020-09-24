@@ -1,4 +1,4 @@
-const { Model, DataTypes } = require('sequelize')
+const { Model, DataTypes } = require('sequelize');
 
 class Permission extends Model {
     static init(sequelize) {
@@ -9,10 +9,17 @@ class Permission extends Model {
         })
     }
 
-    // static associate(models) {
-    //     this.hasMany(models.SignUp, { foreignKey: 'permission_id', as: 'permissions' });
-    // }
+    static associate(models) {
+        this.hasMany(models.User, { foreignKey: 'permission_id', as: 'users' })
+    }
+    
+}
 
+Permission.prototype.toJSON =  function () {
+    const values = { ...this.get()};
+  
+    delete values.password;
+    return values;
 }
 
 
