@@ -10,7 +10,6 @@ const routes = Router()
 routes.post('/rm/:user_id/:location_id', RmController.store)
 routes.get('/rm', RmController.index)
 
-
 routes.post('/inputs/:product_id/:rm_id', InputController.store)
 routes.get('/inputs/:rm_id', InputController.index)
 

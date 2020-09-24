@@ -11,8 +11,6 @@ module.exports = {
 
     async enter(req, res) { 
 
-        console.log(authConfig)
-
         const { board, password } = req.body
 
         const checkBoard = await User.findOne({ where: { board }})
