@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('rms', { 
+    await queryInterface.createTable('plancons', { 
         
       id: {
         type: Sequelize.INTEGER,
@@ -11,31 +11,33 @@ module.exports = {
         allowNull: false
       },
 
-      rm: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true
-      },
-
-      date: {
-        type: Sequelize.DATE,
-        allowNull: false,
-      },
-
-      location_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: { model: 'categories', key: 'id'},
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
-      },
-
       user_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'users', key: 'id'},
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
+      },
+
+      location_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: 'locations', key: 'id'},
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
+
+      cell_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: 'cells', key: 'id'},
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
+
+      date: {
+        type: Sequelize.DATE,
+        allowNull: false,
       },
 
       createdAt: {
@@ -52,6 +54,6 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    await queryInterface.dropTable('rms');
+    await queryInterface.dropTable('plancons');
   }
 };

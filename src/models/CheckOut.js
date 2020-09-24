@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require('sequelize')
 
-class Input extends Model {
+class CheckOut extends Model {
     static init(sequelize) {
         super.init({
             quantity: DataTypes.INTEGER,
@@ -10,10 +10,10 @@ class Input extends Model {
     }
 
     static associate(models) {
-        this.belongsTo(models.Product, { foreignKey: 'product_id', as: 'product' })
-        this.belongsTo(models.Rm, { foreignKey: 'rm_id', as: 'rm' })
+        this.belongsTo(models.Output, { foreignKey: 'output_id', as: 'output' })
+        this.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' })
     }
 }
 
 
-module.exports = Input
+module.exports = CheckOut
