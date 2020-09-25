@@ -1,5 +1,6 @@
 const Location = require('../../models/Location')
 const User = require('../../models/User')
+const City = require('../../models/City')
 
 module.exports = {
 
@@ -22,13 +23,19 @@ module.exports = {
 
     async store(req, res) {
         
-        const { user_id } = req.params
-        const { city } = req.body
+        const { user_id, city_id } = req.params
+        const { name } = req.body
 
-        const checkCity = await Location.findOne({ where: { city }})
+        const checkName = await Location.findOne({ where: { name }})
 
-        if (checkCity) {
-            return res.status(400).json({ error: 'This city already exists' })
+        if (checkName) {
+            return res.status(400).json({ error: 'This location already exists' })
+        }
+
+        const checkCity = await City.findByPk(city_id)
+
+        if (!checkCity) {
+            return res.status(400).json({ error: 'City does not exists' })
         }
 
         const checkUser = await User.findByPk(user_id)
@@ -38,7 +45,8 @@ module.exports = {
         }
 
         const insert = await Location.create({
-            city,
+            name,
+            city_id,
             user_id
         })
 

@@ -1,5 +1,4 @@
 const express = require('express')
-const routes = require('./routes')
 const account = require('./routes/account')
 const location = require('./routes/location')
 const product = require('./routes/product')
@@ -14,8 +13,6 @@ app.use('/locations', location)
 app.use('/products', product)
 app.use('/storages', storage)
 
-
-app.use(routes)
 
 
 module.exports = app

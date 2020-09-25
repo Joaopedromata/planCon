@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     
-     await queryInterface.createTable('locations', { 
+     await queryInterface.createTable('cities', { 
         
         id: {
           type: Sequelize.INTEGER,
@@ -12,12 +12,10 @@ module.exports = {
           allowNull: false
         },
 
-        city_id: {
-          type: Sequelize.INTEGER,
+        name: {
+          type: Sequelize.STRING,
           allowNull: false,
-          references: { model: 'cities', key: 'id'},
-          onUpdate: 'CASCADE',
-          onDelete: 'CASCADE'
+          unique: true
         },
 
         user_id: {
@@ -26,12 +24,6 @@ module.exports = {
           references: { model: 'users', key: 'id'},
           onUpdate: 'CASCADE',
           onDelete: 'CASCADE'
-        },
-
-        name: {
-          type: Sequelize.STRING,
-          allowNull: false,
-          unique: true
         },
 
         createdAt: {
@@ -48,6 +40,6 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-     await queryInterface.dropTable('locations');
+     await queryInterface.dropTable('cities');
   }
 };
