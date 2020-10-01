@@ -14,6 +14,7 @@ class User extends Model {
 
     static associate(models) {
         this.belongsTo(models.Permission, { foreignKey: 'permission_id', as: 'permission' })
+        this.belongsToMany(models.City, { foreignKey: 'user_id', through: 'users_cities', as: 'cities' })
         this.hasMany(models.Location, { foreignKey: 'user_id', as: 'locations' })
         this.hasMany(models.Cell, { foreignKey: 'user_id', as: 'users' })
     }
