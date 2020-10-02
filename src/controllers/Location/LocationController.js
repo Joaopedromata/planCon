@@ -6,17 +6,14 @@ module.exports = {
 
     async index(req,res) {
 
-        const { user_id } = req.params
+        const { user_id } = req.params 
+        
+        const show = await User.findByPk(user_id, { 
+            include: {
+                association: 'locations',
+                through: { attributes: [] } 
+            }})
 
-        const show = await User.findByPk(user_id,{
-            include: { association: 'locations' }
-        })
-
-        if (!show) {
-            return res.status(400).json({ error: 'Users not found' })
-        }
-
-       
         res.status(200).json(show)
 
     },
@@ -48,8 +45,12 @@ module.exports = {
 
     async show(req, res) {
 
+        const show = await Location.findAll({ 
+            include: {
+                association: 'users',
+                through: { attributes: [] } 
+            }})
         
-        const show = await Location.findAll({ include: { association: 'user' }})
 
         res.status(200).json(show)
     }

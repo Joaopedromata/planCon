@@ -7,7 +7,7 @@ const routes = Router()
 
 routes.post('/cities', CityController.store)
 
-routes.post('/:city_id/', LocationController.store)
+routes.post('/:city_id', LocationController.store)
 
 routes.get('/:user_id', LocationController.index)
 routes.get('/', LocationController.show)

@@ -87,17 +87,17 @@ module.exports = {
 
         const user = await User.findByPk(user_id)
 
-        // if (!user) {
-        //     return res.status(400).json({ error: 'User not found' })
-        // }
+        if (!user) {
+            return res.status(400).json({ error: 'User not found' })
+        }
 
-        // await locations.map(async check => { 
-        //     const checkLocation = await City.findByPk(check)
+        await locations.map(async check => { 
+            const checkLocation = await City.findByPk(check)
 
-        //     if (!checkLocation) {
-        //         return res.status(400).json({ error: 'Location not found' })
-        //     }
-        // })
+            if (!checkLocation) {
+                return res.status(400).json({ error: 'Location not found' })
+            }
+        })
 
 
         await user.addLocations(locations)
