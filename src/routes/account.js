@@ -11,9 +11,11 @@ routes.get('/permissions', checkToken, PermissionController.index)
 routes.get('/permissions/:permission_id', checkToken, PermissionController.show)
 
 routes.post('/', UserController.store)
+routes.post('/:user_id/cities', UserController.storeAssocCityUser)
+routes.post('/:user_id/locations', UserController.storeAssocLocationUser)
 
 routes.post('/login', LogInController.store)
 
-routes.post('/cities/:user_id', UserController.teste)
+
 
 module.exports = routes

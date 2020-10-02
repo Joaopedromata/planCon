@@ -4,6 +4,7 @@ class City extends Model {
     static init(sequelize) {
         super.init({
             name: DataTypes.STRING,
+            uf: DataTypes.STRING,
         },{
             sequelize
         })

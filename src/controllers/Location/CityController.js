@@ -1,12 +1,10 @@
 const City = require('../../models/City')
-const User = require('../../models/User')
-
 
 module.exports = {
 
     async store(req, res){
         
-        const { name } = req.body
+        const { name, uf } = req.body
 
         const checkCity = await City.findOne({ where: { name }})
 
@@ -15,9 +13,12 @@ module.exports = {
         }
 
         const insert = await City.create({
-            name
+            name,
+            uf
         })
 
         res.status(200).json(insert)
     }
+
+    
 }

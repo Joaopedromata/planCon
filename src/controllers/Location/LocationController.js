@@ -23,7 +23,7 @@ module.exports = {
 
     async store(req, res) {
         
-        const { user_id, city_id } = req.params
+        const { city_id } = req.params
         const { name } = req.body
 
         const checkName = await Location.findOne({ where: { name }})
@@ -38,16 +38,9 @@ module.exports = {
             return res.status(400).json({ error: 'City does not exists' })
         }
 
-        const checkUser = await User.findByPk(user_id)
-
-        if (!checkUser) {
-            return res.status(400).json({ error: 'Users not found' })
-        }
-
         const insert = await Location.create({
             name,
-            city_id,
-            user_id
+            city_id
         })
 
         res.status(200).json(insert)
