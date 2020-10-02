@@ -14,16 +14,16 @@ module.exports = {
 
         user_id: {
             type: Sequelize.INTEGER,
-            allowNull: false,
             references: { model: 'users', key: 'id'},
+            allowNull: false,
             onUpdate: 'CASCADE',
             onDelete: 'CASCADE'
         },
 
         city_id: {
             type: Sequelize.INTEGER,
-            allowNull: false,
             references: { model: 'cities', key: 'id'},
+            allowNull: false,
             onUpdate: 'CASCADE',
             onDelete: 'CASCADE'
         },

@@ -5,7 +5,7 @@ const LocationController = require('../controllers/Location/LocationController')
 
 const routes = Router()
 
-routes.post('/cities/:user_id', CityController.store)
+routes.post('/cities', CityController.store)
 
 routes.post('/:city_id/:user_id', LocationController.store)
 

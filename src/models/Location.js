@@ -13,6 +13,7 @@ class Location extends Model {
         this.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' })
         this.belongsTo(models.City, { foreignKey: 'city_id', as: 'city' })
         this.hasMany(models.Cell, { foreignKey: 'location_id', as: 'cells' })
+        
     }
 }
 

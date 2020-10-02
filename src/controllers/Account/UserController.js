@@ -43,8 +43,27 @@ module.exports = {
             password: hash,
             permission_id
         })
+
+       //await user.setCities()
         
         return res.status(200).json(user)
     
+    },
+
+    async teste(req, res) {
+
+        const { user_id } = req.params
+
+        const { cities } = req.body
+
+        const user = await User.findByPk(user_id)
+
+        //await user.update(cities)
+
+        await user.setCities(cities)
+
+        res.json({ oi : 'ooi'})
+
     }
+
 }
