@@ -1,6 +1,7 @@
 const Location = require('../../models/Location')
 const User = require('../../models/User')
 const City = require('../../models/City')
+const Cell = require('../../models/Cell')
 
 module.exports = {
 
@@ -9,10 +10,14 @@ module.exports = {
         const { user_id } = req.params 
         
         const show = await User.findByPk(user_id, { 
-            include: {
-                association: 'locations',
-                through: { attributes: [] } 
-            }})
+            include: [
+                {
+                    association: 'locations',
+                    through: { attributes: [] },
+                    include: [{ association: 'city'}, { association: 'cells'}]
+                },
+            ]
+        })
 
         res.status(200).json(show)
 
@@ -45,13 +50,18 @@ module.exports = {
 
     async show(req, res) {
 
-        const show = await Location.findAll({ 
-            include: {
-                association: 'users',
-                through: { attributes: [] } 
-            }})
         
 
+        const show = await Location.findAll({ 
+            include: [
+                {
+                    association: 'users',
+                    through: { attributes: [] } 
+                }
+            ],
+        })
+
+        
         res.status(200).json(show)
     }
 }

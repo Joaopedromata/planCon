@@ -51,6 +51,13 @@ module.exports = {
 
         return res.status(200).json(insert)
 
-    }
+    },
     
+    // async count(req, res) {
+    //     const { city_id } = req.params
+
+    //     const count = await Cell.findAndCountAll({
+    //         where: 
+    //     })
+    // }
 }
