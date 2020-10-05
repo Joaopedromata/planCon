@@ -1,7 +1,8 @@
 const Location = require('../../models/Location')
 const User = require('../../models/User')
 const City = require('../../models/City')
-const Cell = require('../../models/Cell')
+const { Op } = require('sequelize')
+
 
 module.exports = {
 
@@ -62,6 +63,29 @@ module.exports = {
         })
 
         
+        res.status(200).json(show)
+    },
+
+    async showUsersByLocations(req, res) {
+        const { user_id } = req.params 
+
+        const show = await User.findByPk(user_id, { 
+            include: [
+                {
+                    association: 'locations',
+                    through: { attributes: [] },
+                    include: [
+                        { 
+                            association: 'users', 
+                            through: { attributes: [] },
+                            where: { id: {[Op.not] : user_id} }
+                        }
+                    ]
+                },
+            ]
+        })
+
+
         res.status(200).json(show)
     }
 }

@@ -9,11 +9,13 @@ routes.post('/cities', CityController.store)
 
 routes.post('/:city_id', LocationController.store)
 
+routes.get('/user/:user_id', LocationController.showUsersByLocations)
 routes.get('/:user_id', LocationController.index)
 routes.get('/', LocationController.show)
 
 routes.post('/cells/:location_id/:user_id', CellController.store)
 routes.get('/cells/:location_id', CellController.index)
+
 
 
 
