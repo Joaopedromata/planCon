@@ -12,7 +12,8 @@ class Location extends Model {
     static associate(models) {
         this.belongsToMany(models.User, { foreignKey: 'location_id', through: 'users_locations', as: 'users' })
         this.belongsTo(models.City, { foreignKey: 'city_id', as: 'city' })
-        this.hasMany(models.Cell, { foreignKey: 'location_id', as: 'cells' })   
+        this.hasMany(models.Cell, { foreignKey: 'location_id', as: 'cells' })
+        //this.belongsTo(models.Rm, { foreignKey: 'location_id', as: 'location' })   
     }
 }
 

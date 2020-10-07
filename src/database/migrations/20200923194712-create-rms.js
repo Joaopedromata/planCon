@@ -25,7 +25,7 @@ module.exports = {
       location_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'categories', key: 'id'},
+        references: { model: 'locations', key: 'id'},
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },

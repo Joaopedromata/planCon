@@ -92,7 +92,7 @@ module.exports = {
         }
 
         await locations.map(async check => { 
-            const checkLocation = await City.findByPk(check)
+            const checkLocation = await Location.findByPk(check)
 
             if (!checkLocation) {
                 return res.status(400).json({ error: 'Location not found' })

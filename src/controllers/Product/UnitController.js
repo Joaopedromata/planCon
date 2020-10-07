@@ -35,5 +35,15 @@ module.exports = {
 
         res.status(200).json(show)
 
+    },
+
+    async searchUnitByPK(req, res) {
+
+        const { unit_id } = req.params
+
+        const show = await Unit.findByPk(unit_id)
+
+        res.status(200).json(show)
+
     }
 }

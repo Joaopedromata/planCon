@@ -80,7 +80,7 @@ module.exports = {
                             through: { attributes: [] },
                             where: { id: {[Op.not] : user_id} }
                         }
-                    ]
+                    ],
                 },
             ]
         })

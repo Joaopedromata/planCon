@@ -72,6 +72,20 @@ module.exports = {
         }
 
         return res.status(200).json(show)
+    },
+
+    async searchProductsbySap(req, res) {
+
+        const { sap } = req.params
+
+        const show = await Product.findOne({ where: { sap } })
+
+        if (!show) {
+            return res.status(400).json({ error: 'Product not found' })
+        }
+
+        return res.status(200).json(show)
+        
     }
 
 }
