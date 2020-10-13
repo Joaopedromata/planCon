@@ -51,5 +51,19 @@ module.exports = {
 
         return res.status(200).json(insert)
 
-    }
+    },
+
+    async searchCellbynumber(req, res) {
+
+        const { number } = req.params
+
+        const show = await Cell.findOne({ where: { number }})
+
+        if (!show) {
+            return res.status(400).json({ error: 'Cell not found' })
+        }
+
+        return res.status(200).json(show)
+
+    } 
 }

@@ -15,6 +15,7 @@ routes.get('/', LocationController.show)
 
 routes.post('/cells/:location_id/:user_id', CellController.store)
 routes.get('/cells/:location_id', CellController.index)
+routes.get('/cells/search/:number', CellController.searchCellbynumber)
 
 
 
