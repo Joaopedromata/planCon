@@ -9,7 +9,18 @@ module.exports = {
         const { rm_id } = req.params
 
         const show = await Rm.findByPk(rm_id,{
-            include: { association: 'inputs' }
+            include: [
+                { 
+                association: 'inputs' ,
+                include : [
+                    { 
+                        association: 'product',
+                        include : [{ association: 'unit' }], 
+                    }
+                    ],
+                },
+                { association: 'location', include : [{ association: 'city' }], }
+            ]
         })
 
         if (!show) {

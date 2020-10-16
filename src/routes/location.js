@@ -12,10 +12,13 @@ routes.post('/:city_id', LocationController.store)
 routes.get('/user/:user_id', LocationController.showUsersByLocations)
 routes.get('/:user_id', LocationController.index)
 routes.get('/', LocationController.show)
+routes.get('/find/:location_id', LocationController.showLocationById)
+
 
 routes.post('/cells/:location_id/:user_id', CellController.store)
 routes.get('/cells/:location_id', CellController.index)
 routes.get('/cells/search/:number', CellController.searchCellbynumber)
+
 
 
 

@@ -3,7 +3,8 @@ const City = require('../../models/City')
 const Location = require('../../models/Location')
 const Permission = require('../../models/Permission')
 const User = require('../../models/User')
-
+const PlanCon = require('../../models/PlanCon')
+const Rm = require('../../models/Rm')
 
 
 module.exports = {
@@ -104,6 +105,32 @@ module.exports = {
 
         return res.status(200).json({ user, locations })
 
+    },
+    
+
+    async findPlanconAndRmByUser(req, res){
+        
+        const { user_id }  = req.params
+
+        const show = await User.findByPk(user_id, {
+            include: [
+                { 
+                    association: 'usersPlancon',
+                    include : [{ association: 'location' }]
+                },
+                
+                { 
+                    association: 'usersRm',
+                    include : [{ association: 'location' }] 
+                }
+            ]
+        })
+
+        if (!show) {
+            return res.status(400).json({ error: 'Permissions not found' })
+        }
+
+        res.status(200).json(show)
     }
 
 }

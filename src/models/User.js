@@ -16,6 +16,8 @@ class User extends Model {
         this.belongsTo(models.Permission, { foreignKey: 'permission_id', as: 'permission' })
         this.belongsToMany(models.City, { foreignKey: 'user_id', through: 'users_cities', as: 'cities' })
         this.belongsToMany(models.Location, { foreignKey: 'user_id', through: 'users_locations', as: 'locations' })
+        this.hasMany(models.Rm, { foreignKey: 'user_id', as: 'usersRm' })
+        this.hasMany(models.PlanCon, { foreignKey: 'user_id', as: 'usersPlancon' })
         this.hasMany(models.Cell, { foreignKey: 'user_id', as: 'users' })
     }
 }

@@ -87,5 +87,18 @@ module.exports = {
 
 
         res.status(200).json(show)
+    },
+
+    async showLocationById(req, res) {
+
+        const { location_id } = req.params
+
+        const show = await Location.findByPk(location_id)
+
+        if (!show) {
+            return res.status(400).json({ error: 'Locations not found' })
+        }
+
+        return res.status(200).json(show)
     }
 }

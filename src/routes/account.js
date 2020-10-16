@@ -13,6 +13,7 @@ routes.get('/permissions/:permission_id', checkToken, PermissionController.show)
 routes.post('/', UserController.store)
 routes.post('/:user_id/cities', UserController.storeAssocCityUser)
 routes.post('/:user_id/locations', UserController.storeAssocLocationUser)
+routes.get('/:user_id/collaborators/details', UserController.findPlanconAndRmByUser)
 
 routes.post('/login', LogInController.store)
 

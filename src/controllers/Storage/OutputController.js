@@ -35,7 +35,19 @@ module.exports = {
         const { plancon_id } = req.params
     
         const show = await PlanCon.findByPk(plancon_id, {
-            include: { association: 'outputs'}
+            include: [
+                { 
+                association: 'outputs' ,
+                include : [
+                    { 
+                        association: 'product',
+                        include : [{ association: 'unit' }], 
+                    }
+                    ],
+                },
+                { association: 'location', include : [{ association: 'city' }], 
+                }
+            ]
         })
 
         if (!show) {
