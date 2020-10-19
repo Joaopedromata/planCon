@@ -4,6 +4,7 @@ const RmController = require('../controllers/Storage/RmController')
 const PlanConController = require('../controllers/Storage/PlanConController')
 const OutputController = require('../controllers/Storage/OutputController')
 const CheckOutController = require('../controllers/Storage/CheckOutController')
+const ResultController = require('../controllers/Storage/ResultController')
 
 const routes = Router()
 
@@ -21,5 +22,9 @@ routes.get('/outputs/:plancon_id', OutputController.index)
 
 routes.post('/outputs/checkout/:output_id/:user_id', CheckOutController.store)
 routes.get('/outputs/checkout/:output_id', CheckOutController.index)
+
+
+routes.get('/inputs/quantity/sum/:product_id/:location_id', ResultController.showStorageByLocations)
+
 
 module.exports = routes

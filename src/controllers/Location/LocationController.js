@@ -100,5 +100,23 @@ module.exports = {
         }
 
         return res.status(200).json(show)
+    },
+
+    async showHistoryByLocation(req, res) {
+
+        const { location_id } = req.params
+
+        const show = await Location.findByPk(location_id, {
+            include: [
+                { association: 'plancons' },
+                { association: 'rms' }
+            ]
+        })
+
+        if (!show){
+            return res.status(400).json({ error: 'Location not found' })
+        }
+
+        return res.status(200).json(show)
     }
 }

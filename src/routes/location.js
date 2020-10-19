@@ -13,6 +13,8 @@ routes.get('/user/:user_id', LocationController.showUsersByLocations)
 routes.get('/:user_id', LocationController.index)
 routes.get('/', LocationController.show)
 routes.get('/find/:location_id', LocationController.showLocationById)
+routes.get('/history/:location_id', LocationController.showHistoryByLocation)
+
 
 
 routes.post('/cells/:location_id/:user_id', CellController.store)
