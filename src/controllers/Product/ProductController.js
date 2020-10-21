@@ -7,7 +7,9 @@ module.exports = {
 
     async index(req, res){
 
-        const product = await Product.findAll()
+        const product = await Product.findAll({
+            include: ['unit', 'category']
+        })
 
         return res.status(200).json(product)
     },

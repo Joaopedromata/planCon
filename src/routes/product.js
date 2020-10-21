@@ -7,6 +7,7 @@ const routes = Router()
 
 routes.post('/categories/:user_id', CategoryController.store)
 routes.get('/categories', CategoryController.index)
+routes.get('/categories/:category_id', CategoryController.showCategoryByPK)
 
 routes.post('/units/:user_id', UnitController.store)
 routes.get('/units', UnitController.index)

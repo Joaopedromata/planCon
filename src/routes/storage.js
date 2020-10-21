@@ -24,7 +24,7 @@ routes.post('/outputs/checkout/:output_id/:user_id', CheckOutController.store)
 routes.get('/outputs/checkout/:output_id', CheckOutController.index)
 
 
-routes.get('/inputs/quantity/sum/:product_id/:location_id', ResultController.showStorageByLocations)
-
+routes.get('/inputs/quantity/sum/:product_id/:location_id', ResultController.showStorageByLocationsPositive)
+routes.get('/outputs/quantity/sum/:product_id/:location_id', ResultController.showStorageByLocationsNegative)
 
 module.exports = routes
