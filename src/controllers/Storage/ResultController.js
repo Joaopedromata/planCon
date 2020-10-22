@@ -11,72 +11,59 @@ module.exports = {
     
     async showStorageByLocationsPositive(req, res){
         
-        // const product = await Product.findAll({
-        //     include: ['unit', 'category'],
-            
-        // })
-
-        
-        
         const { product_id, location_id } = req.params
 
+        const checkProduct = await Product.findByPk(product_id)
+
+        if (!checkProduct){
+            res.status(400).json({ error: 'Product not found'})
+        }
+
         const resultPositive = await Location.findByPk(location_id,{ 
+            attributes: ['name'],
             include: [
                 {
                     association: 'rms',
-                    include: [
-                        { 
-                            association: 'inputs',
-                            where: { product_id },
-                            group: 'product_id',
-                            attributes: [
-                                [sequelize.fn('sum', sequelize.col('quantity')), 'quantity'],
-                            ],
-                            include: [
-                                { 
-                                    association: 'product',
-                                    include: ['unit', 'category'],
-                                }
-                            ]
+                    attributes: ['user_id'],
+                    include: { 
+                                association: 'inputs',
+                                where: { product_id },
+                                group: 'product_id',
+                                attributes: [
+                                                [sequelize.fn('sum', sequelize.col('quantity')), 'total'],
+                                        ],
+                                include: [
+                                    { 
+                                        association: 'product',
+                                        attributes: ['sap', 'description'],
+                                        include: [
+                                            {
+                                                association: 'unit',
+                                                attributes: ['name']
+                                            }, 
+                                            {
+                                                association: 'category',
+                                                attributes: ['name']
+                                            }
+                                        ],
+                                    }
+                                ]
                         },
-                    ],
-                },
+                    
+                }
             ]
+            
         })
 
         if(!resultPositive) {
             return res.status(400).json({ error: 'error'})
         }
 
-        const resultNegative = await Location.findByPk(location_id,{ 
-            include: [
-                {
-                    association: 'plancons',
-                    include: [
-                        { 
-                            association: 'outputs',
-                            where: { product_id },
-                            group: 'product_id',
-                            attributes: [
-                                [sequelize.fn('sum', sequelize.col('quantity')), 'total'],
-                            ]
-                        },
-                    ]
-                },
-                
-            ]
-        })
-
-
-        if(!resultNegative) {
-            return res.status(400).json({ error: 'error'})
+        if(!resultPositive.rms[0]){
+            return res.status(400).json({ error: 'This product does not have input' } )
         }
 
-        const positive = resultPositive.rms[0].inputs[0]
-        const negative = resultNegative.plancons[0].outputs[0]
-        
         return res.status(200).json(resultPositive)
-        //return res.status(200).json({ positive, negative })
 
     },
 
@@ -85,25 +72,54 @@ module.exports = {
     async showStorageByLocationsNegative(req, res){
         const { product_id, location_id } = req.params
 
+        const checkProduct = await Product.findByPk(product_id)
+
+        if (!checkProduct){
+            res.status(400).json({ error: 'Product not found'})
+        }
+
         const resultNegative = await Location.findByPk(location_id,{ 
             include: [
                 {
                     association: 'plancons',
-                    include: [
-                        { 
-                            association: 'outputs',
-                            where: { product_id },
-                            group: 'product_id',
-                            attributes: [
-                                [sequelize.fn('sum', sequelize.col('quantity')), 'total'],
-                            ]
+                    attributes: ['user_id'],
+                    include: { 
+                                association: 'outputs',
+                                where: { product_id },
+                                group: 'product_id',
+                                attributes: [
+                                                [sequelize.fn('sum', sequelize.col('quantity')), 'total'],
+                                        ],
+                                include: [
+                                    { 
+                                        association: 'product',
+                                        attributes: ['sap', 'description'],
+                                        include: [
+                                            {
+                                                association: 'unit',
+                                                attributes: ['name']
+                                            }, 
+                                            {
+                                                association: 'category',
+                                                attributes: ['name']
+                                            }
+                                        ],
+                                    }
+                                ]
                         },
-                    ]
-                },
-                
+                    
+                }
             ]
         })
 
-        return res.status(200).json(resultNegative.plancons)
+        if(!resultNegative) {
+            return res.status(400).json({ error: 'error'})
+        }
+
+        if(!resultNegative.plancons[0]){
+            return res.status(400).json({ error: 'This product does not have output' } )
+        }
+
+        return res.status(200).json(resultNegative)
     }
 }
