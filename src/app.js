@@ -5,6 +5,7 @@ const location = require('./routes/location')
 const product = require('./routes/product')
 const storage = require('./routes/storage')
 const canIUse = require('./routes/canIUse')
+const quantification = require('./routes/quantification')
 
 const app = express()
 
@@ -16,6 +17,7 @@ app.use('/locations', location)
 app.use('/products', product)
 app.use('/storages', storage)
 app.use('/check', canIUse)
+app.use('/quantifications', quantification)
 
 
 

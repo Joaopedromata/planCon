@@ -17,7 +17,7 @@ routes.get('/history/:location_id', LocationController.showHistoryByLocation)
 
 
 
-routes.post('/cells/:location_id/:user_id', CellController.store)
+routes.post('/cells/:location_id/:user_id/:quantification_id', CellController.store)
 routes.get('/cells/:location_id', CellController.index)
 routes.get('/cells/search/:number', CellController.searchCellbynumber)
 

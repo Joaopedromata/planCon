@@ -4,6 +4,7 @@ class Output extends Model {
     static init(sequelize) {
         super.init({
             quantity: DataTypes.INTEGER,
+            identifier: DataTypes.STRING
         },{
             sequelize
         })

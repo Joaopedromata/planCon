@@ -24,6 +24,10 @@ module.exports = {
         allowNull: false,
       },
 
+      identifier: {
+        type: Sequelize.STRING,
+      },
+
       plancon_id: {
         type: Sequelize.INTEGER,
         allowNull: false,

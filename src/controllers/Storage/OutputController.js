@@ -7,7 +7,7 @@ module.exports = {
     async store(req, res) {
 
         const { product_id, plancon_id } = req.params
-        const { quantity } = req.body
+        const { quantity, identifier } = req.body
 
         const checkProduct = await Product.findByPk(product_id)
 
@@ -24,7 +24,8 @@ module.exports = {
         const insert = await Output.create({
             product_id,
             plancon_id,
-            quantity
+            quantity,
+            identifier
         })
 
         return res.status(200).json(insert)

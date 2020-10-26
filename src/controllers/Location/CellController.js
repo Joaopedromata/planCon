@@ -21,12 +21,11 @@ module.exports = {
 
     async store(req, res) {
         
-        const { location_id, user_id } = req.params
+        const { location_id, user_id, quantification_id } = req.params
         const { number } = req.body
 
         const checkLocation = await Location.findByPk(location_id)
 
-        console.log(checkLocation)
         if (!checkLocation) {
             return res.status(400).json({ error: 'Location not found' })
         }
@@ -46,6 +45,7 @@ module.exports = {
         const insert = await Cell.create({
             location_id,
             user_id,
+            quantification_id,
             number
         })
 
